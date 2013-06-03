@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ant-apache -->
+<project name="TestJava" basedir="." default="build">
+	<property name="Name" location="Rendzu"/>
+	<property name="src.dir" location="${basedir}/src"/>
+	<property name="build.classes" location="${basedir}/classes"/>
+
+	<target name="compile">
+		<javac srcdir="${src.dir}"
+					destdir="${build.classes}"
+					debug="false" 
+					encoding="UTF-8" > 
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+       <jar destfile="${Name}.jar" basedir="${build.classes}">
+         <manifest>
+           <attribute name="Built-By" value="cyrill"/>
+           <attribute name="Main-Class" value="rendzu.Rendzu"/>
+         </manifest>
+       </jar>
+    </target>
+	
+	<target name="applet" depends="compile">
+       <jar destfile="${Name}.jar" basedir="${build.classes}">
+         <manifest>
+           <attribute name="Built-By" value="cyrill"/>
+           <attribute name="Main-Class" value="rendzu.AppletRendzu"/>
+         </manifest>
+       </jar>
+    </target>
+
+
+
+	<target name="clean">
+		<delete dir="${build.classes}/Rendzu"/>
+		<delete file="${Name}.jar"/>
+	</target>
+ </project>
