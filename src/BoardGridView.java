@@ -4,10 +4,7 @@
  */
 package rendzu;
 
-//import javax.swing.*;
-//import java.util.*;
 import java.awt.*;
-import java.awt.image.*;
 import java.awt.event.*;
 
 /**
@@ -22,7 +19,6 @@ public class BoardGridView extends BoardView
     Image iEmpty;
     Image iWhite;
     Image iBlack;
-    BoardModel gModel;
     GameJPanel gamePanel;
  
     private boolean drawLine;
@@ -32,10 +28,10 @@ public class BoardGridView extends BoardView
     public BoardGridView(BoardModel model, GameJPanel game)
     {
         super(model);
-        gModel = model;
+        
         this.gamePanel = game;
 
-        updateDisplay();
+        //updateDisplay();
 
         iEmpty = GameImages.getImage("empty.png", this);
         iWhite = GameImages.getImage("white.png", this);
@@ -101,21 +97,23 @@ public class BoardGridView extends BoardView
         end2.setIJ(p2);
     }
 
+    @Override
     public Dimension getPreferredSize()
     {
-        int N = gModel.getN();
-        int M = gModel.getM();
+        int N = model.getN();
+        int M = model.getM();
         return new Dimension(N * SIZE + N + 2 * BEGIN_X /*+ 6 + 5*/,
             M * SIZE + M + BEGIN_Y /*+ 12 + 25*/);
     }
-
+    
+    @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         java.awt.Graphics2D graphics2D = (java.awt.Graphics2D) g;
 
-        int N = getModel().getN();
-        int M = getModel().getM();
+        int N = model.getN();
+        int M = model.getM();
 
 
         for (int i = 0; i < N; i++)
@@ -127,7 +125,9 @@ public class BoardGridView extends BoardView
                 if (model.getBoard()[i][j] == BoardModel.Cell.White)
                 {
                     iii = iWhite;
-                } else if (model.getBoard()[i][j] == BoardModel.Cell.Black)
+                } 
+                else 
+                if (model.getBoard()[i][j] == BoardModel.Cell.Black)
                 {
                     iii = iBlack;
                 }
@@ -154,9 +154,9 @@ public class BoardGridView extends BoardView
                 BEGIN_Y + end2.getJ()* SIZE + end2.getJ() + (SIZE/2));
         }
         
-        if(gModel.getLatsPoint().getI() != -1)
+        if(model.getLatsPoint().getI() != -1)
         {
-            BoardModel.Point p = new BoardModel.Point(gModel.getLatsPoint());
+            BoardModel.Point p = new BoardModel.Point(model.getLatsPoint());
             graphics2D.setColor(Color.blue);
             graphics2D.setStroke(new java.awt.BasicStroke(2.0f));
             graphics2D.drawRect(
@@ -167,7 +167,8 @@ public class BoardGridView extends BoardView
         }
 
     }
-
+    
+    @Override
     public void updateDisplay()
     {
         repaint();
