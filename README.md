@@ -1,4 +1,4 @@
 Rendzu
 ======
 
-java game Rendzu (Gomoku)
+Mobile android game Rendzu (Gomoku)
